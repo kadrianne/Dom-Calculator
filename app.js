@@ -8,16 +8,42 @@ let expression = ''
 function displayOnClick(){
     buttonsList.forEach(button => {
         button.addEventListener('click', () => {
-            expression += button.innerText
-            screen.innerText = expression
-            if (button == clear) {
-                expression = ''
+            if (button == equals) {
                 screen.innerText = expression
-            } else if (button == equals) {
-                
+            } else {
+                expression += button.innerText
+                screen.innerText = expression
             }
         })
     })
 }
 
+function clearButton(){
+    clear.addEventListener('click', () => {
+        screen.innerText = ''
+        resetCalculator()
+    })
+}
+
+function equalsButton(){
+    equals.addEventListener('click', () => {
+        let convertedExpression = convertOperators(expression)
+        let answer = eval(convertedExpression)
+        screen.innerText = answer
+        resetCalculator()
+    })
+}
+
+function resetCalculator(){
+    expression = ''
+    answer = ''
+}
+
+function convertOperators(expression){
+    expressionWithMultiply = expression.replace('x','*')
+    expressionWithDivision = expressionWithMultiply.replace('÷','/')
+    return expressionWithDivision
+}
 displayOnClick()
+clearButton()
+equalsButton()
