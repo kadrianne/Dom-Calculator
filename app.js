@@ -27,9 +27,7 @@ function clearButton(){
 
 function equalsButton(){
     equals.addEventListener('click', () => {
-        let convertedExpression = convertOperators(expression)
-        let answer = eval(convertedExpression)
-        screen.innerText = answer
+        evaluateExpression(expression)
         resetCalculator()
     })
 }
@@ -39,11 +37,33 @@ function resetCalculator(){
     answer = ''
 }
 
+function evaluateExpression(expression){
+    let convertedExpression = convertOperators(expression)
+    if (isValidExpression(convertedExpression) == false){
+        screen.innerText = 'Error'
+    } else {
+        let answer = eval(convertedExpression)
+        screen.innerText = answer
+    }
+}
+
 function convertOperators(expression){
-    expressionWithMultiply = expression.replace('x','*')
-    expressionWithDivision = expressionWithMultiply.replace('÷','/')
+    expressionWithMultiply = expression.replace(/x/g,'*')
+    expressionWithDivision = expressionWithMultiply.replace(/÷/g,'/')
     return expressionWithDivision
 }
+
+function isValidExpression(expression){
+    const badOperators = ['/*','*/','*+','/+','+/','+*','-+','-*','-/','/0']
+    let checkedExpression = expression
+    badOperators.forEach(operator => {
+        if (expression.includes(operator) == true){
+            checkedExpression = false
+        }
+    })
+    return checkedExpression
+}
+
 displayOnClick()
 clearButton()
 equalsButton()
