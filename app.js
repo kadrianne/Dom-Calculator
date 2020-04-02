@@ -5,6 +5,12 @@ const clear = document.querySelector('#clear')
 const equals = document.querySelector('#equals')
 let expression = ''
 
+displayOnClick()
+clear.addEventListener('click', clearScreen)
+document.addEventListener('keydown', pressEscape)
+
+equals.addEventListener('click', equalsButton)
+
 function displayOnClick(){
     buttonsList.forEach(button => {
         button.addEventListener('click', () => {
@@ -18,18 +24,14 @@ function displayOnClick(){
     })
 }
 
-function clearButton(){
-    clear.addEventListener('click', () => {
-        screen.innerText = ''
-        resetCalculator()
-    })
+function clearScreen(){
+    screen.innerText = ''
+    resetCalculator()
 }
 
 function equalsButton(){
-    equals.addEventListener('click', () => {
-        evaluateExpression(expression)
-        resetCalculator()
-    })
+    evaluateExpression(expression)
+    resetCalculator()
 }
 
 function resetCalculator(){
@@ -64,6 +66,8 @@ function isValidExpression(expression){
     return checkedExpression
 }
 
-displayOnClick()
-clearButton()
-equalsButton()
+function pressEscape(){
+    if (event.key == 'Escape') {
+        clearScreen()
+    }
+}
