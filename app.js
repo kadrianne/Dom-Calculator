@@ -3,13 +3,18 @@ const buttonsList = Array.from(buttons)
 const screen = document.querySelector('#screen')
 const clear = document.querySelector('#clear')
 const equals = document.querySelector('#equals')
+const operators = document.querySelectorAll('.operator')
+const operatorList = Array.from(operators)
 let expression = ''
 
 displayOnClick()
+displayOnPress()
+
 clear.addEventListener('click', clearScreen)
 document.addEventListener('keydown', pressEscape)
 
 equals.addEventListener('click', equalsButton)
+document.addEventListener('keydown', pressEnter)
 
 function displayOnClick(){
     buttonsList.forEach(button => {
@@ -21,6 +26,55 @@ function displayOnClick(){
                 screen.innerText = expression
             }
         })
+    })
+}
+
+function displayOnPress(){
+    document.addEventListener('keydown', () => {
+        switch (event.key) {
+            case '1':
+                expression += '1'
+                return screen.innerText = expression;
+            case '2':
+                expression += '2'
+                return screen.innerText = expression;
+            case '3':
+                expression += '3'
+                return screen.innerText = expression;
+            case '4':
+                expression += '4'
+                return screen.innerText = expression;
+            case '5':
+                expression += '5'
+                return screen.innerText = expression;
+            case '6':
+                expression += '6'
+                return screen.innerText = expression;
+            case '7':
+                expression += '7'
+                return screen.innerText = expression;
+            case '8':
+                expression += '8'
+                return screen.innerText = expression;
+            case '9':
+                expression += '9'
+                return screen.innerText = expression;
+            case '0':
+                expression += '0'
+                return screen.innerText = expression;
+            case '+':
+                expression += '+'
+                return screen.innerText = expression;
+            case '-':
+                expression += '-'
+                return screen.innerText = expression;
+            case '*':
+                expression += 'x'
+                return screen.innerText = expression;
+            case '/':
+                expression += '÷'
+                return screen.innerText = expression;
+        }
     })
 }
 
@@ -70,4 +124,10 @@ function pressEscape(){
     if (event.key == 'Escape') {
         clearScreen()
     }
+}
+
+function pressEnter(){
+    if (event.key == 'Enter') {
+        equalsButton()
+    }  
 }
